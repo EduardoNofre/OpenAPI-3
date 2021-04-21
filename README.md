@@ -8,11 +8,11 @@ tempo de execução para inferir a semântica da API com base nas configuraçõe
 
 **Pode adicioná-lo em seu projeto Maven:**
 
-<dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-ui</artifactId>
-    <version>1.1.49</version>
-</dependency>
+**<dependency>**
+    **<groupId>org.springdoc</groupId>**
+   ** <artifactId>springdoc-openapi-ui</artifactId>**
+   ** <version>1.1.49</version>**
+**</dependency>**
 
 **Banco:** H2<br />
 **Spring boot:** 2.3.9.RELEASE<br />
