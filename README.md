@@ -8,7 +8,6 @@ tempo de execução para inferir a semântica da API com base nas configuraçõe
 
 **Pode adicioná-lo em seu projeto Maven:**
 
-<p>
 ````
 <dependency>
     <groupId>org.springdoc</groupId>
@@ -16,7 +15,6 @@ tempo de execução para inferir a semântica da API com base nas configuraçõe
     <version>1.1.49</version>
 </dependency>
 ````
-</p>
 
 **Banco:** H2<br />
 **Spring boot:** 2.3.9.RELEASE<br />
