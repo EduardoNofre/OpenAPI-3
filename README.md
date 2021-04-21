@@ -1,4 +1,4 @@
-###  Documenting Spring Boot REST API with SpringDoc + OpenAPI 3 ###
+#  Documenting Spring Boot REST API with SpringDoc + OpenAPI 3 #
 
 
 ## SpringDoc-OpenAPI-3<br />
