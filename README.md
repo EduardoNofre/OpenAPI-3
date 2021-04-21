@@ -24,6 +24,6 @@ tempo de execução para inferir a semântica da API com base nas configuraçõe
 **java:** 1.8<br />
 
 
-Referenecia site: [https://www.dariawan.com/tutorials/spring/documenting-spring-boot-rest-api-springdoc-openapi-3/](https://www.dariawan.com/tutorials/spring/documenting-spring-boot-rest-api-springdoc-openapi-3/)
+Referenecia site:<br /> [https://www.dariawan.com/tutorials/spring/documenting-spring-boot-rest-api-springdoc-openapi-3/](https://www.dariawan.com/tutorials/spring/documenting-spring-boot-rest-api-springdoc-openapi-3/)
 :
 
