@@ -7,13 +7,17 @@ A biblioteca java springdoc-openapi ajuda a automatizar a geração de documenta
 tempo de execução para inferir a semântica da API com base nas configurações da mola, estrutura de classe e várias anotaçõe.<br />
 
 **Pode adicioná-lo em seu projeto Maven:**
+
 <p>
+<pre><code>
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-ui</artifactId>
     <version>1.1.49</version>
 </dependency>
+</code></pre>
 </p>
+
 **Banco:** H2<br />
 **Spring boot:** 2.3.9.RELEASE<br />
 **java:** 1.8<br />
