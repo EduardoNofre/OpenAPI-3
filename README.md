@@ -6,6 +6,14 @@ Especificação OpenAPI 3.0.0 foi finalmente lançada pela Open API Initiative. 
 A biblioteca java springdoc-openapi ajuda a automatizar a geração de documentação API usando projetos de spring boot. springdoc-openapi funciona examinando um aplicativo em
 tempo de execução para inferir a semântica da API com base nas configurações da mola, estrutura de classe e várias anotaçõe.<br />
 
+**Pode adicioná-lo em seu projeto Maven:**
+
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>1.1.49</version>
+</dependency>
+
 **Banco:** H2<br />
 **Spring boot:** 2.3.9.RELEASE<br />
 **java:** 1.8<br />
