@@ -1,0 +1,25 @@
+##-----------------------------------------------------------
+## Configura��o - Spring Datasource
+##-----------------------------------------------------------
+server:
+  port: 7009
+  servlet:
+    context-path: /api-cliente
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console 
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: update
+  properties:
+        hibernate:
+            dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    platform: h2
+    url: jdbc:h2:file:C:\Users\nofre\test
+    driverClassName: org.h2.Driver
+    username: sa
+    password: admin

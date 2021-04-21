@@ -1,0 +1,7 @@
+com\api\spring\doc\app\canal\entity\Cliente.class
+com\api\spring\doc\app\canal\repository\ClienteRepository.class
+com\api\spring\doc\app\canal\service\ClienteService.class
+com\api\spring\doc\app\canal\controller\ClienteController.class
+com\api\spring\doc\app\canal\dao\ClienteDao.class
+com\api\spring\doc\app\canal\daoImpl\ClienteDaoImpl.class
+com\api\spring\doc\app\canal\SpringDocOpenApi3Application.class
