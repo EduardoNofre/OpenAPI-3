@@ -3,10 +3,14 @@ package com.api.spring.doc.app.canal.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import com.api.spring.doc.app.canal.dao.ClienteDao;
+import com.api.spring.doc.app.canal.dto.ClienteDTO;
 import com.api.spring.doc.app.canal.entity.Cliente;
 
 @Service
@@ -14,31 +18,34 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteDao clienteDao;
+	
+	@Autowired
+	private  ModelMapper modelMapper;
 
-	public Cliente busca(long Id) {
+	public ClienteDTO busca(long Id) {
 
-		Optional<Cliente> Cliente = clienteDao.buscaClienteid(Id);
+		Optional<Cliente> cliente = clienteDao.buscaClienteid(Id);
 
-		if (Cliente.isPresent()) {
-
-			return Cliente.get();
+		if (cliente.isPresent()) {		
+			return modelMapper.map(cliente, new TypeToken<ClienteDTO>() {}.getType());
 		}
 		return null;
 	}
 	
-	public List<Cliente> buscaTodos() {
+	public List<ClienteDTO> buscaTodos() {
 
 		List<Cliente> todosCliente = clienteDao.buscaTodosCliente();
 
-		if (!(todosCliente.isEmpty())) {
+		if (org.springframework.util.CollectionUtils.isEmpty(todosCliente)) {
 
-			return todosCliente;
+			return null;
 		}
-		return null;
+
+		return modelMapper.map(todosCliente, new TypeToken<List<ClienteDTO>>() {}.getType());
 	}
 	
 	
-	public Cliente gravaCliente(String nome,String endereco,String cep,int idade) {
+	public ClienteDTO gravaCliente(String nome,String endereco,String cep,int idade) {
 		
 		Cliente cliente = new Cliente();
 		
@@ -51,23 +58,23 @@ public class ClienteService {
 
 		if (!(clienteSalvo.getId() > 0)) {
 
-			return clienteSalvo;
+			return modelMapper.map(clienteSalvo, new TypeToken<ClienteDTO>() {}.getType());
 		}
 		return null;
 	}
 	
-	public Cliente atualizaCliente(Cliente clienteObj) {
+	public ClienteDTO atualizaCliente(Cliente clienteObj) {
 		
 		Cliente clienteAtualizado = clienteDao.atualizaCliente(clienteObj);
 
 		if (!(clienteAtualizado.getId() > 0)) {
 
-			return clienteAtualizado;
+			return modelMapper.map(clienteAtualizado, new TypeToken<ClienteDTO>() {}.getType());
 		}
 		return null;
 	}
 	
-	public Cliente deleteCliente(Long idCliente) {
+	public void deleteCliente(Long idCliente) {
 
 		Cliente clienteExist = existeCliente(idCliente);
 		
@@ -75,12 +82,11 @@ public class ClienteService {
 
 			clienteDao.deleteCliente(idCliente);
 			
-			return clienteExist;
 		}
-		return null;
+
 	}
 	
-	public Cliente existeCliente(Long idCliente) {
+	private Cliente existeCliente(Long idCliente) {
 
 		Optional<Cliente> clienteExist = clienteDao.existeCliente(idCliente);
 		
