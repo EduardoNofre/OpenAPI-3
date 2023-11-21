@@ -23,11 +23,13 @@
 	</properties>
 	<dependencies>
 
+		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- LOMBOK -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -47,7 +49,6 @@
 			<version>1.6.15</version>
 		</dependency>
 
-
 		<!-- ModelMapper -->
 		<dependency>
 			<groupId>org.modelmapper</groupId>
@@ -55,16 +56,27 @@
 			<version>${modelmapper.version}</version>
 		</dependency>
 
+		<!-- OPEN FEING -->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.cloud</groupId>-->
+		<!--			<artifactId>spring-cloud-starter-openfeign</artifactId>-->
+		<!--			<version>4.0.4</version>-->
+		<!--		</dependency>-->
+
+
+		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+		<!-- DEVTOOLS -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
+		<!-- H2 DATABASE -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

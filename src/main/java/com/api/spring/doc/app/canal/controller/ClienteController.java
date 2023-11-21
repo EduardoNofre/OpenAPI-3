@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.spring.doc.app.canal.dto.ClienteDTO;
 import com.api.spring.doc.app.canal.entity.Cliente;
+import com.api.spring.doc.app.canal.hanlde.ServiceException;
+import com.api.spring.doc.app.canal.hanlde.ServiceNoContentExcetion;
 import com.api.spring.doc.app.canal.service.ClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +38,8 @@ public class ClienteController {
 	private ClienteService clienteService;
 
 	@Operation(summary = "Busca cliente por id", description = "Busca cliente por id no banco de dados")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
 			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
 			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
 			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
@@ -47,13 +50,14 @@ public class ClienteController {
 			@ApiResponse(responseCode = "504", description = "Gateway Time-Out", content = @Content) })
 	@GetMapping(value = "id/{idCliente}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<ClienteDTO> buscaId(
-			@Parameter(name = "idCliente", description = "id cliente", example = "123") @RequestParam(name = "idCliente", required = true) long idCliente) {
+			@Parameter(name = "idCliente", description = "id cliente", example = "123") @RequestParam(name = "idCliente", required = true) long idCliente) throws ServiceException {
 
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.busca(idCliente));
 	}
 
 	@Operation(summary = "Lista todos os cliente.", description = "Busca todos os cliente no banco de dados")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
 			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
 			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
 			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
@@ -63,13 +67,14 @@ public class ClienteController {
 			@ApiResponse(responseCode = "500", description = "Interno sem causa mapeada.", content = @Content),
 			@ApiResponse(responseCode = "504", description = "Gateway Time-Out", content = @Content) })
 	@GetMapping(value = "lista", produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<ClienteDTO>> buscaTodos() {
+	public ResponseEntity<List<ClienteDTO>> buscaTodos() throws ServiceNoContentExcetion {
 
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.buscaTodos());
 	}
 
 	@Operation(summary = "Cadastro de cliente", description = "Cadastro de cliente no banco de dados")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
 			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
 			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
 			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
@@ -86,14 +91,15 @@ public class ClienteController {
 			@Parameter(name = "cep", description = "Cep do cliente") @RequestParam(name = "cep", required = true) String cep,
 			@Parameter(name = "idade", description = "Idade do cliente") @RequestParam(name = "idade", required = true) int idade,
 			@Parameter(name = "email", description = "E-mail do cliente") @RequestParam(name = "email", required = true) String email,
-			@Parameter(name = "telefone", description = "Telefone do cliente") @RequestParam(name = "telefone", required = true) String telefone) {
+			@Parameter(name = "telefone", description = "Telefone do cliente") @RequestParam(name = "telefone", required = true) String telefone) throws ServiceException {
 
-		return ResponseEntity.status(HttpStatus.OK).body(clienteService.gravaCliente(nome, endereco, cep, idade));
+		return ResponseEntity.status(HttpStatus.OK).body(clienteService.gravaCliente(nome, endereco, cep, idade,email,telefone));
 
 	}
 
 	@Operation(summary = "Remove o registro do cliente", description = "Deleta o registro do cliente no banco de dados")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
 			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
 			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
 			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
@@ -104,7 +110,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "504", description = "Gateway Time-Out", content = @Content) })
 	@DeleteMapping(path = "Remove/id{idCliente}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Void> deleteCliente(
-			@Parameter(name = "idCliente", description = "id cliente", example = "123") @RequestParam(name = "idCliente", required = true) Long idCliente) {
+			@Parameter(name = "idCliente", description = "id cliente", example = "123") @RequestParam(name = "idCliente", required = true) Long idCliente) throws ServiceException {
 
 		clienteService.deleteCliente(idCliente);
 
@@ -112,7 +118,8 @@ public class ClienteController {
 	}
 
 	@Operation(summary = "Atualiza o cliente", description = "Atualiza os dados do cliente no banco de dados")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
 			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
 			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
 			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
@@ -123,7 +130,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "504", description = "Gateway Time-Out", content = @Content) })
 	@PutMapping(value = "atualiza/{IdCliente}", produces = { "application/json", "application/xml" }, consumes = {
 			"application/json", "application/xml" })
-	public ResponseEntity<ClienteDTO> atualizaCliente(@RequestBody @Valid Cliente cliente) {
+	public ResponseEntity<ClienteDTO> atualizaCliente(@RequestBody @Valid Cliente cliente) throws ServiceException {
 
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.atualizaCliente(cliente));
 	}
