@@ -1,6 +1,5 @@
 package com.api.spring.doc.app.canal.dao;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.api.spring.doc.app.canal.entity.Cliente;
@@ -8,8 +7,6 @@ import com.api.spring.doc.app.canal.entity.Cliente;
 public interface ClienteDao {
 
 	Optional<Cliente> buscaClienteid(Long idCliente);
-
-	List<Cliente> buscaTodosCliente();
 
 	Cliente gravaCliente(Cliente clienteObj);
 	

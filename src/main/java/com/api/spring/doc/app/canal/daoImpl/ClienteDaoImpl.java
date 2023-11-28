@@ -1,16 +1,15 @@
 package com.api.spring.doc.app.canal.daoImpl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.api.spring.doc.app.canal.dao.ClienteDao;
 import com.api.spring.doc.app.canal.entity.Cliente;
 import com.api.spring.doc.app.canal.repository.ClienteRepository;
 
-@Component
+@Repository
 public class ClienteDaoImpl implements ClienteDao {
 
 	@Autowired
@@ -21,13 +20,6 @@ public class ClienteDaoImpl implements ClienteDao {
 
 		Optional<Cliente> ce = clienteRepository.findById(idCliente);
 		return ce;
-	}
-
-	@Override
-	public List<Cliente> buscaTodosCliente() {
-
-		List<Cliente> todosClientes = clienteRepository.findAll();
-		return todosClientes;
 	}
 
 	@Override

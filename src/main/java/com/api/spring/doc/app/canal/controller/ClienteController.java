@@ -25,6 +25,7 @@ import com.api.spring.doc.app.canal.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,16 +39,12 @@ public class ClienteController {
 	private ClienteService clienteService;
 
 	@Operation(summary = "Busca cliente por id", description = "Busca cliente por id no banco de dados")
-	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
-			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
-			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
-			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
-			@ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content),
-			@ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
-			@ApiResponse(responseCode = "404", description = "Não encontrado", content = @Content),
-			@ApiResponse(responseCode = "500", description = "Interno sem causa mapeada.", content = @Content),
-			@ApiResponse(responseCode = "504", description = "Gateway Time-Out", content = @Content) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Sucesso"),
+			@ApiResponse(responseCode = "400", description = "Processar a requisição"),
+			@ApiResponse(responseCode = "401", description = "Não autorizado"),
+			@ApiResponse(responseCode = "404", description = "Não encontrado"),
+			@ApiResponse(responseCode = "500", description = "Interno sem causa mapeada."),
+			@ApiResponse(responseCode = "504", description = "Gateway Time-Out") })
 	@GetMapping(value = "id/{idCliente}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<ClienteDTO> buscaId(
 			@Parameter(name = "idCliente", description = "id cliente", example = "123") @RequestParam(name = "idCliente", required = true) long idCliente) throws ServiceException {
@@ -57,7 +54,7 @@ public class ClienteController {
 
 	@Operation(summary = "Lista todos os cliente.", description = "Busca todos os cliente no banco de dados")
 	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content),
+			@ApiResponse(responseCode = "200", description = "Ok", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ClienteDTO.class)) }),
 			@ApiResponse(responseCode = "201", description = "Criado", content = @Content),
 			@ApiResponse(responseCode = "204", description = "Sem conteudo", content = @Content),
 			@ApiResponse(responseCode = "400", description = "Processar a requisição", content = @Content),
@@ -67,9 +64,11 @@ public class ClienteController {
 			@ApiResponse(responseCode = "500", description = "Interno sem causa mapeada.", content = @Content),
 			@ApiResponse(responseCode = "504", description = "Gateway Time-Out", content = @Content) })
 	@GetMapping(value = "lista", produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<ClienteDTO>> buscaTodos() throws ServiceNoContentExcetion {
+	public ResponseEntity<List<ClienteDTO>> buscaTodos(
+			@Parameter(name = "pagina", description = "Numero da pagina", example = "1") @RequestParam(name = "pagina", required = true) Integer pagina
+			) throws ServiceNoContentExcetion {
 
-		return ResponseEntity.status(HttpStatus.OK).body(clienteService.buscaTodos());
+		return ResponseEntity.status(HttpStatus.OK).body(clienteService.buscaTodos(pagina));
 	}
 
 	@Operation(summary = "Cadastro de cliente", description = "Cadastro de cliente no banco de dados")

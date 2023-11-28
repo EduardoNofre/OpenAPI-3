@@ -1,5 +1,9 @@
 package com.api.spring.doc.app.canal.service;
 
+import static com.api.spring.doc.app.canal.util.ConstantesUtil.USUARIO_ERRO_ATUALIZAR;
+import static com.api.spring.doc.app.canal.util.ConstantesUtil.USUARIO_ERRO_PERSISITIR;
+import static com.api.spring.doc.app.canal.util.ConstantesUtil.USUARIO_NAO_ENCONTRADO;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,16 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.spring.doc.app.canal.dao.ClienteDao;
+import com.api.spring.doc.app.canal.dao.ClienteMappingDao;
 import com.api.spring.doc.app.canal.dto.ClienteDTO;
 import com.api.spring.doc.app.canal.entity.Cliente;
+import com.api.spring.doc.app.canal.entity.ClienteMapping;
 import com.api.spring.doc.app.canal.hanlde.ServiceException;
 import com.api.spring.doc.app.canal.hanlde.ServiceNoContentExcetion;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import static com.api.spring.doc.app.canal.util.ConstantesUtil.*;
 
 @Service
 @Data
@@ -28,6 +32,9 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteDao clienteDao;
+	
+	@Autowired
+	private ClienteMappingDao clienteMappingDao;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -45,9 +52,9 @@ public class ClienteService {
 		throw new ServiceException(USUARIO_NAO_ENCONTRADO);
 	}
 
-	public List<ClienteDTO> buscaTodos() throws ServiceNoContentExcetion {
+	public List<ClienteDTO> buscaTodos(Integer pagina) throws ServiceNoContentExcetion {
 
-		List<Cliente> todosCliente = clienteDao.buscaTodosCliente();
+		List<ClienteMapping> todosCliente = clienteMappingDao.buscaTodosCliente(pagina);
 
 		if (org.springframework.util.CollectionUtils.isEmpty(todosCliente)) {
 
@@ -60,17 +67,21 @@ public class ClienteService {
 
 	public ClienteDTO gravaCliente(String nome, String endereco, String cep, int idade,String email, String telefone) throws ServiceException {
 
+		Cliente clienteSalvo = null;
+		
+		for(int x= 0; x<=100; ++x) {
 		Cliente cliente = new Cliente();
 
-		cliente.setNome(nome);
-		cliente.setEndereco(endereco);
+		cliente.setNome(nome+String.valueOf(x));
+		cliente.setEndereco(endereco+String.valueOf(x));
 		cliente.setCep(cep);
 		cliente.setIdade(idade);
-		cliente.setEmail(email);
-		cliente.setTelefone(telefone);
+		cliente.setEmail(email+String.valueOf(x));
+		cliente.setTelefone(telefone+String.valueOf(x));
 
-		Cliente clienteSalvo = clienteDao.gravaCliente(cliente);
+		clienteSalvo = clienteDao.gravaCliente(cliente);
 
+		}
 		if (clienteSalvo.getId() > 0) {
 
 			return modelMapper.map(clienteSalvo, new TypeToken<ClienteDTO>() {
